@@ -55,36 +55,39 @@ const Footer = () => {
       <div className='px-6 pt-24 pb-12'>
         {/* Contact Links */}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-12 mb-24'>
-          <div>
+          <div className='flex flex-col items-center md:items-start text-center md:text-left'>
             <h2 className='text-sm uppercase tracking-widest text-black/60 dark:text-white/60 mb-8'>
               Contact
             </h2>
-          </div>
 
-          <div className='flex flex-col justify-end space-y-6'>
+            {/* Email */}
             <a
               href='mailto:saint.mynel@gmail.com'
-              className='group flex items-center gap-4 md:text-2xl hover:text-black/60 hover:dark:text-white/60 transition-colors'>
-              <Mail className='w-6 h-6' />
-              saint.mynel@gmail.com
-              <ArrowRight className='w-6 h-6 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all' />
+              className='group flex flex-col sm:flex-row items-center sm:items-center gap-3 text-base md:text-2xl hover:text-black/60 hover:dark:text-white/60 transition-colors'>
+              <Mail className='w-6 h-6 shrink-0' />
+
+              <span className='break-words'>saint.mynel@gmail.com</span>
+
+              <ArrowRight className='w-6 h-6 shrink-0 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all hidden sm:block' />
             </a>
 
-            {/* Social Links - Updated to remove deprecated Instagram */}
-            <div className='flex gap-6'>
+            {/* Social Links */}
+            <div className='flex gap-6 mt-6 justify-center md:justify-start'>
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.url}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='group flex items-center gap-2 text-xl hover:text-black/60 hover:dark:text-white/60 transition-colors'>
+                  className='group hover:text-black/60 hover:dark:text-white/60 transition-colors'>
                   <social.icon className='w-6 h-6' />
                   <span className='sr-only'>{social.name}</span>
                 </a>
               ))}
             </div>
           </div>
+
+          <div className='hidden md:flex flex-col justify-end space-y-6'></div>
         </div>
 
         {/* Bottom Info */}

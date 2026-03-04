@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { projects } from '../assets/assets';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
 
 const Project = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const project = projects.find((p) => p.id === id);
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -26,8 +28,30 @@ const Project = () => {
     setCurrentImage((prev) => (prev === totalImages - 1 ? 0 : prev + 1));
   };
 
+  // Back button logic similar to handleScrollTo
+  const handleBackToProjects = () => {
+    if (location.pathname !== '/') {
+      navigate('/', { replace: false });
+      setTimeout(() => {
+        const section = document.getElementById('projects');
+        if (section) section.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const section = document.getElementById('projects');
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className='min-h-screen bg-white text-black dark:bg-black dark:text-white transition-colors duration-500 pt-24 px-6'>
+      {/* Back Button */}
+      <button
+        onClick={handleBackToProjects}
+        className='flex items-center mb-6 text-black dark:text-white hover:text-gray-500 dark:hover:text-gray-400 transition-colors duration-300 cursor-pointer'>
+        <ArrowLeft className='w-5 h-5 mr-2' />
+        Back to Projects
+      </button>
+
       {/* Project Image Carousel */}
       <div className='relative mb-12 flex justify-center items-center max-w-full md:max-w-3xl mx-auto'>
         <img
