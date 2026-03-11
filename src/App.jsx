@@ -26,7 +26,7 @@ const App = () => {
     }
   }, [darkMode]);
   return (
-    <div className='bg-white dark:bg-black px-20 transition-colors duration-500'>
+    <div className='bg-white dark:bg-black px-6 sm:px-10 md:px-20 transition-colors duration-500'>
       <Navbar
         darkMode={darkMode}
         setDarkMode={setDarkMode}

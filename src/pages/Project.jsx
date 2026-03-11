@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { projects } from '../assets/assets';
 import { ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Project = () => {
   const { id } = useParams();
@@ -43,7 +44,12 @@ const Project = () => {
   };
 
   return (
-    <div className='min-h-screen bg-white text-black dark:bg-black dark:text-white transition-colors duration-500 pt-24 px-6'>
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -40 }}
+      transition={{ duration: 0.6 }}
+      className='min-h-screen bg-white text-black dark:bg-black dark:text-white transition-colors duration-500 pt-24 px-6'>
       {/* Back Button */}
       <button
         onClick={handleBackToProjects}
@@ -120,7 +126,7 @@ const Project = () => {
           </a>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -16,12 +16,13 @@ const Projects = () => {
         </span>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16'>
-        {[...projects].reverse().map((project, index) => (
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-x-12'>
+        {[...projects].reverse().map((project, index, arr) => (
           <ProjectsItem
             key={index}
             {...project}
             index={index}
+            isLast={index === arr.length - 1}
           />
         ))}
       </div>

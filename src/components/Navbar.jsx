@@ -62,7 +62,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         className='text-xl font-bold tracking-tight hover:opacity-70 transition-opacity'
         onClick={(e) => {
           e.preventDefault();
-          handleScrollTo('top');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }}>
         MYNEL SANTOS
       </a>

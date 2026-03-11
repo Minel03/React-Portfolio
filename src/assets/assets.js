@@ -112,7 +112,7 @@ export const projects = [
   {
     id: 'gemini',
     title: 'Gemini',
-    description: 'Personal Project that clone Gemini Chatbot',
+    description: 'Personal Project that is a clone of Gemini Chatbot',
     language: 'React, JavaScript, Tailwind, HTML',
     category: 'AI Chat Bot',
     role: 'Full Stack Developer',

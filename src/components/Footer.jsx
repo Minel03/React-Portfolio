@@ -66,7 +66,7 @@ const Footer = () => {
               className='group flex flex-col sm:flex-row items-center sm:items-center gap-3 text-base md:text-2xl hover:text-black/60 hover:dark:text-white/60 transition-colors'>
               <Mail className='w-6 h-6 shrink-0' />
 
-              <span className='break-words'>saint.mynel@gmail.com</span>
+              <span className='wrap-break-word'>saint.mynel@gmail.com</span>
 
               <ArrowRight className='w-6 h-6 shrink-0 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all hidden sm:block' />
             </a>

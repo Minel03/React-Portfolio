@@ -2,7 +2,9 @@ import { motion } from 'framer-motion';
 
 const Hero = () => {
   return (
-    <section className=' flex flex-col justify-between px-6 pt-32 pb-12 border-b border-black/20 dark:border-white/20'>
+    <section
+      id='top'
+      className=' flex flex-col justify-between px-6 pt-32 pb-12 border-b border-black/20 dark:border-white/20'>
       <div className='space-y-2'>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
