@@ -71,7 +71,7 @@ const Project = () => {
           <button
             onClick={handlePrev}
             className='absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 p-2 md:p-3 bg-black/30 rounded-full hover:bg-black/60 transition z-20 cursor-pointer'>
-            <ChevronLeft className='w-5 md:w-6 h-5 md:h-6 text-white dark:text-black' />
+            <ChevronLeft className='w-5 md:w-6 h-5 md:h-6 text-white' />
           </button>
         )}
 
@@ -80,7 +80,7 @@ const Project = () => {
           <button
             onClick={handleNext}
             className='absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 p-2 md:p-3 bg-black/30 rounded-full hover:bg-black/60 transition z-20 cursor-pointer'>
-            <ChevronRight className='w-5 md:w-6 h-5 md:h-6 text-white dark:text-black' />
+            <ChevronRight className='w-5 md:w-6 h-5 md:h-6 text-white' />
           </button>
         )}
       </div>
