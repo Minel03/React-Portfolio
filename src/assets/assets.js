@@ -11,6 +11,7 @@ export const projects = [
       iot_img,
       iot_img2,
       iot_img3,
+      iot_img3a,
       iot_img4,
       iot_img5,
       iot_img6,
@@ -198,14 +199,15 @@ export const projects = [
       hotel_img9,
       hotel_img10,
     ],
-    github: 'https://github.com/Minel03/Food-Delivery',
-    link: 'https://food-del-frontend-rust.vercel.app/',
+    github: 'https://github.com/Minel03/Quick-Stay',
+    link: 'https://quick-stay-bay-five.vercel.app/',
   },
 ];
 
 import iot_img from './img_1.png';
 import iot_img2 from './img_10.png';
 import iot_img3 from './img_11.png';
+import iot_img3a from './img_11.1.png';
 import iot_img4 from './img_12.png';
 import iot_img5 from './img_13.png';
 import iot_img6 from './img_14.png';
@@ -290,7 +292,7 @@ import food_img11 from './img_84.png';
 import food_img12 from './img_85.png';
 import food_img13 from './img_86.png';
 import food_img14 from './img_87.png';
-import hotel_img from './img_88.png';
+import hotel_img from './img_87.png';
 import hotel_img2 from './img_89.png';
 import hotel_img3 from './img_90.png';
 import hotel_img4 from './img_91.png';
