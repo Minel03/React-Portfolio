@@ -177,6 +177,30 @@ export const projects = [
     github: 'https://github.com/Minel03/Food-Delivery',
     link: 'https://food-del-frontend-rust.vercel.app/',
   },
+  {
+    id: 'hotel',
+    title: 'Quick Stay',
+    description:
+      'Personal Project which shows a hotel booking website with room reservation system, and owner dashboard',
+    language: 'React, MongoDB, Node.js, Express.js, CSS, Cloudinary',
+    category: 'Hotel Booking Website',
+    role: 'Full Stack Developer',
+    image: hotel_img,
+    images: [
+      hotel_img,
+      hotel_img2,
+      hotel_img3,
+      hotel_img4,
+      hotel_img5,
+      hotel_img6,
+      hotel_img7,
+      hotel_img8,
+      hotel_img9,
+      hotel_img10,
+    ],
+    github: 'https://github.com/Minel03/Food-Delivery',
+    link: 'https://food-del-frontend-rust.vercel.app/',
+  },
 ];
 
 import iot_img from './img_1.png';
@@ -266,3 +290,13 @@ import food_img11 from './img_84.png';
 import food_img12 from './img_85.png';
 import food_img13 from './img_86.png';
 import food_img14 from './img_87.png';
+import hotel_img from './img_88.png';
+import hotel_img2 from './img_89.png';
+import hotel_img3 from './img_90.png';
+import hotel_img4 from './img_91.png';
+import hotel_img5 from './img_92.png';
+import hotel_img6 from './img_93.png';
+import hotel_img7 from './img_94.png';
+import hotel_img8 from './img_95.png';
+import hotel_img9 from './img_96.png';
+import hotel_img10 from './img_97.png';
