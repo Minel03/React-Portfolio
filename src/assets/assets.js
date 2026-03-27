@@ -292,7 +292,7 @@ import food_img11 from './img_84.png';
 import food_img12 from './img_85.png';
 import food_img13 from './img_86.png';
 import food_img14 from './img_87.png';
-import hotel_img from './img_87.png';
+import hotel_img from './img_88.png';
 import hotel_img2 from './img_89.png';
 import hotel_img3 from './img_90.png';
 import hotel_img4 from './img_91.png';
