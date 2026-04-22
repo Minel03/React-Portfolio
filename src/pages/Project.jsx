@@ -37,11 +37,7 @@ const Project = () => {
 
   const techStack = project.language.split(',').map((tech) => tech.trim());
 
-  const [showAllImages, setShowAllImages] = useState(false);
-  const initialImageCount = 4;
-  const displayedImages = showAllImages
-    ? project.images
-    : project.images.slice(0, initialImageCount);
+
 
   return (
     <motion.div
@@ -121,41 +117,23 @@ const Project = () => {
                 <span className='w-8 h-[2px] bg-accent'></span>
                 Visual Showcase
               </h2>
-              {totalImages > initialImageCount && (
-                <button
-                  onClick={() => setShowAllImages(!showAllImages)}
-                  className='text-[10px] font-black uppercase tracking-widest text-accent hover:underline'>
-                  {showAllImages ? 'Show Less' : `View All (${totalImages})`}
-                </button>
-              )}
             </div>
-            <div className='grid grid-cols-1 gap-6'>
-              {displayedImages.map((img, i) => (
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              {project.images.map((img, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className='rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5'>
+                  className='rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 group aspect-[4/3]'>
                   <img
                     src={img}
                     alt={`${project.title} screenshot ${i}`}
-                    className='w-full h-auto'
+                    className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]'
                   />
                 </motion.div>
               ))}
             </div>
-            {totalImages > initialImageCount && (
-              <div className='flex justify-center pt-8'>
-                <button
-                  onClick={() => setShowAllImages(!showAllImages)}
-                  className='px-10 py-4 border-2 border-black/10 dark:border-white/10 rounded-full font-black uppercase tracking-[0.2em] text-xs hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all'>
-                  {showAllImages
-                    ? 'Show Less'
-                    : `Show All ${totalImages} Screenshots`}
-                </button>
-              </div>
-            )}
           </section>
         </div>
 
