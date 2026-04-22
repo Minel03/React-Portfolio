@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import {
   Code,
   Terminal,
@@ -7,75 +8,96 @@ import {
   Activity,
 } from 'lucide-react';
 
+const SkillCard = ({ icon: Icon, title, skills, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    className='p-6 rounded-2xl bg-black/2 dark:bg-white/2 border border-black/5 dark:border-white/5 hover:border-accent/30 transition-colors group'>
+    <div className='w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform'>
+      <Icon className='w-6 h-6 text-accent' />
+    </div>
+    <h4 className='font-bold mb-2'>{title}</h4>
+    <p className='text-sm text-black/50 dark:text-white/50 leading-relaxed'>
+      {skills}
+    </p>
+  </motion.div>
+);
+
 const About = () => {
+  const skillData = [
+    {
+      icon: Code,
+      title: 'Frontend',
+      skills: 'React.js, Next.js, Tailwind CSS, HTML, CSS',
+    },
+    {
+      icon: Terminal,
+      title: 'Backend',
+      skills: 'Laravel, Node.js, Express.js, FastAPI',
+    },
+    { icon: Database, title: 'Databases', skills: 'MongoDB, MySQL, Supabase' },
+    { icon: Server, title: 'APIs', skills: 'REST APIs, Stripe, Razorpay' },
+    { icon: Settings, title: 'Tools', skills: 'Git, GitHub, Vercel, Netlify' },
+    {
+      icon: Activity,
+      title: 'Languages',
+      skills: 'JavaScript, PHP, Python, Java',
+    },
+  ];
+
   return (
     <section
       id='about'
-      className='px-6 py-16 md:py-24 border-b border-white/20'>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
-        {/* LEFT SIDE */}
-        <div>
-          <h2 className='text-sm uppercase tracking-widest text-black/60 dark:text-white/60 mb-6'>
-            About
-          </h2>
+      className='px-6 py-24 md:py-32 max-w-6xl mx-auto'>
+      <div className='grid grid-cols-1 lg:grid-cols-12 gap-16'>
+        {/* LEFT SIDE - Bio */}
+        <div className='lg:col-span-5 space-y-8'>
+          <div className='space-y-4'>
+            <h2 className='text-sm uppercase tracking-[0.2em] font-semibold text-accent'>
+              About Me
+            </h2>
+            <h3 className='text-4xl md:text-5xl font-black tracking-tight uppercase'>
+              Transforming <br /> Ideas into <br /> Reality.
+            </h3>
+          </div>
 
-          <p className='text-lg md:text-xl lg:text-2xl font-medium leading-relaxed'>
-            I am a Full Stack Developer based in the Philippines, specializing
-            in building modern, scalable, and user-friendly web applications.
-          </p>
+          <div className='space-y-4 text-lg text-black/70 dark:text-white/70 font-medium leading-relaxed'>
+            <p>
+              I am a Full Stack Developer based in the Philippines, specializing
+              in building modern, scalable, and user-friendly web applications.
+            </p>
+            <p>
+              With a strong foundation in both frontend and backend
+              technologies, I focus on creating seamless digital experiences
+              that solve real-world problems.
+            </p>
+          </div>
+
+          <div className='pt-4'>
+            <a
+              href='#projects'
+              className='inline-flex items-center gap-2 px-6 py-3 bg-black dark:bg-white text-white dark:text-black rounded-full font-bold hover:bg-accent dark:hover:bg-accent transition-colors group'>
+              View My Work
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}>
+                &rarr;
+              </motion.span>
+            </a>
+          </div>
         </div>
 
-        {/* RIGHT SIDE */}
-        <div>
-          <h3 className='text-sm uppercase tracking-widest text-black/60 dark:text-white/60 mb-6'>
-            Skills
-          </h3>
-
-          <ul className='space-y-5 text-base md:text-lg text-black/70 dark:text-white/70'>
-            <li className='flex items-start gap-3'>
-              <Code className='w-5 h-5 mt-1 shrink-0' />
-              <p>
-                <strong>Frontend:</strong> React.js, Tailwind CSS, HTML, CSS
-              </p>
-            </li>
-
-            <li className='flex items-start gap-3'>
-              <Terminal className='w-5 h-5 mt-1 shrink-0' />
-              <p>
-                <strong>Backend:</strong> Node.js, Express.js, FastAPI
-              </p>
-            </li>
-
-            <li className='flex items-start gap-3'>
-              <Database className='w-5 h-5 mt-1 shrink-0' />
-              <p>
-                <strong>Databases:</strong> MongoDB, MySQL
-              </p>
-            </li>
-
-            <li className='flex items-start gap-3'>
-              <Server className='w-5 h-5 mt-1 shrink-0' />
-              <p>
-                <strong>APIs & Integration:</strong> REST APIs, Stripe, Razorpay
-              </p>
-            </li>
-
-            <li className='flex items-start gap-3'>
-              <Settings className='w-5 h-5 mt-1 shrink-0' />
-              <p>
-                <strong>Tools & Deployment:</strong> Git, GitHub, VSCode,
-                Vercel, Netlify
-              </p>
-            </li>
-
-            <li className='flex items-start gap-3'>
-              <Activity className='w-5 h-5 mt-1 shrink-0' />
-              <p>
-                <strong>Programming Languages:</strong> JavaScript, PHP, Python,
-                Java
-              </p>
-            </li>
-          </ul>
+        {/* RIGHT SIDE - Skills Grid */}
+        <div className='lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4'>
+          {skillData.map((item, index) => (
+            <SkillCard
+              key={index}
+              {...item}
+              index={index}
+            />
+          ))}
         </div>
       </div>
     </section>

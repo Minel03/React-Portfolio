@@ -1,130 +1,215 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { projects } from '../assets/assets';
-import { ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
-import { motion } from 'framer-motion';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowLeft,
+  Github,
+  Globe,
+  Layers,
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Project = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   const project = projects.find((p) => p.id === id);
   const [currentImage, setCurrentImage] = useState(0);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
   if (!project) {
     return (
-      <div className='min-h-screen bg-white text-black dark:bg-black dark:text-white transition-colors duration-500 flex items-center justify-center'>
-        <p className='text-red-500 text-lg'>Project not found.</p>
+      <div className='min-h-screen bg-white dark:bg-black flex items-center justify-center'>
+        <p className='text-accent text-xl font-bold'>Project not found.</p>
       </div>
     );
   }
 
   const totalImages = project.images.length;
-
-  const handlePrev = () => {
+  const handlePrev = () =>
     setCurrentImage((prev) => (prev === 0 ? totalImages - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
+  const handleNext = () =>
     setCurrentImage((prev) => (prev === totalImages - 1 ? 0 : prev + 1));
-  };
 
-  // Back button logic similar to handleScrollTo
-  const handleBackToProjects = () => {
-    if (location.pathname !== '/') {
-      navigate('/', { replace: false });
-      setTimeout(() => {
-        const section = document.getElementById('projects');
-        if (section) section.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      const section = document.getElementById('projects');
-      if (section) section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const techStack = project.language.split(',').map((tech) => tech.trim());
+
+  const [showAllImages, setShowAllImages] = useState(false);
+  const initialImageCount = 4;
+  const displayedImages = showAllImages
+    ? project.images
+    : project.images.slice(0, initialImageCount);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -40 }}
-      transition={{ duration: 0.6 }}
-      className='min-h-screen bg-white text-black dark:bg-black dark:text-white transition-colors duration-500 pt-24 px-6'>
-      {/* Back Button */}
-      <button
-        onClick={handleBackToProjects}
-        className='flex items-center mb-6 text-black dark:text-white hover:text-gray-500 dark:hover:text-gray-400 transition-colors duration-300 cursor-pointer'>
-        <ArrowLeft className='w-5 h-5 mr-2' />
-        Back to Projects
-      </button>
-
-      {/* Project Image Carousel */}
-      <div className='relative mb-12 flex justify-center items-center max-w-full md:max-w-3xl mx-auto'>
-        <img
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className='min-h-screen bg-white text-black dark:bg-black dark:text-white transition-colors duration-500 pb-24'>
+      {/* Hero Header */}
+      <div className='relative h-[60vh] md:h-[70vh] overflow-hidden group'>
+        <motion.img
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: 'easeOut' }}
           src={project.images[currentImage]}
-          alt={`${project.title} screenshot ${currentImage + 1}`}
-          className='w-full h-auto rounded-lg shadow-lg transition-all duration-500'
+          className='w-full h-full object-cover'
         />
+        <div className='absolute inset-0 bg-black/40 backdrop-blur-[2px]' />
 
-        {/* Left Arrow */}
-        {totalImages > 1 && (
-          <button
-            onClick={handlePrev}
-            className='absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 p-2 md:p-3 bg-black/30 rounded-full hover:bg-black/60 transition z-20 cursor-pointer'>
-            <ChevronLeft className='w-5 md:w-6 h-5 md:h-6 text-white' />
-          </button>
-        )}
+        <div className='absolute inset-0 flex flex-col justify-center items-center text-center px-6'>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className='text-white/70 text-sm uppercase tracking-[0.4em] font-bold mb-4'>
+            {project.category}
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className='text-white text-5xl md:text-8xl font-black uppercase tracking-tighter'>
+            {project.title}
+          </motion.h1>
+        </div>
 
-        {/* Right Arrow */}
+        {/* Carousel Controls */}
         {totalImages > 1 && (
-          <button
-            onClick={handleNext}
-            className='absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 p-2 md:p-3 bg-black/30 rounded-full hover:bg-black/60 transition z-20 cursor-pointer'>
-            <ChevronRight className='w-5 md:w-6 h-5 md:h-6 text-white' />
-          </button>
+          <>
+            <button
+              onClick={handlePrev}
+              className='absolute left-6 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md transition-colors text-white'>
+              <ChevronLeft className='w-6 h-6' />
+            </button>
+            <button
+              onClick={handleNext}
+              className='absolute right-6 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md transition-colors text-white'>
+              <ChevronRight className='w-6 h-6' />
+            </button>
+            <div className='absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2'>
+              {project.images.map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-1 transition-all duration-300 rounded-full ${i === currentImage ? 'w-8 bg-white' : 'w-2 bg-white/30'}`}
+                />
+              ))}
+            </div>
+          </>
         )}
       </div>
 
-      {/* Project Title */}
-      <h1 className='text-4xl md:text-5xl font-bold mb-4 transition-colors duration-500'>
-        {project.title}
-      </h1>
+      <div className='max-w-6xl mx-auto px-6 mt-16 grid grid-cols-1 lg:grid-cols-12 gap-16'>
+        {/* Project Info */}
+        <div className='lg:col-span-8 space-y-12'>
+          <section className='space-y-6'>
+            <h2 className='text-3xl font-black uppercase tracking-tight flex items-center gap-3'>
+              <span className='w-8 h-[2px] bg-accent'></span>
+              Overview
+            </h2>
+            <p className='text-xl text-black/70 dark:text-white/70 leading-relaxed font-medium'>
+              {project.description}
+            </p>
+          </section>
 
-      {/* Project Category & Role */}
-      <p className='text-sm uppercase tracking-wider mb-6 text-black/50 dark:text-white/50 transition-colors duration-500'>
-        {project.category} — {project.role}
-      </p>
+          <section className='space-y-8'>
+            <div className='flex items-center justify-between'>
+              <h2 className='text-3xl font-black uppercase tracking-tight flex items-center gap-3'>
+                <span className='w-8 h-[2px] bg-accent'></span>
+                Visual Showcase
+              </h2>
+              {totalImages > initialImageCount && (
+                <button
+                  onClick={() => setShowAllImages(!showAllImages)}
+                  className='text-[10px] font-black uppercase tracking-widest text-accent hover:underline'>
+                  {showAllImages ? 'Show Less' : `View All (${totalImages})`}
+                </button>
+              )}
+            </div>
+            <div className='grid grid-cols-1 gap-6'>
+              {displayedImages.map((img, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className='rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5'>
+                  <img
+                    src={img}
+                    alt={`${project.title} screenshot ${i}`}
+                    className='w-full h-auto'
+                  />
+                </motion.div>
+              ))}
+            </div>
+            {totalImages > initialImageCount && (
+              <div className='flex justify-center pt-8'>
+                <button
+                  onClick={() => setShowAllImages(!showAllImages)}
+                  className='px-10 py-4 border-2 border-black/10 dark:border-white/10 rounded-full font-black uppercase tracking-[0.2em] text-xs hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all'>
+                  {showAllImages
+                    ? 'Show Less'
+                    : `Show All ${totalImages} Screenshots`}
+                </button>
+              </div>
+            )}
+          </section>
+        </div>
 
-      {/* Project Description */}
-      <p className='text-lg mb-6 text-black/80 dark:text-white/80 transition-colors duration-500'>
-        {project.description}
-      </p>
+        {/* Sidebar */}
+        <div className='lg:col-span-4 space-y-10'>
+          <div className='p-8 rounded-3xl bg-black/2 dark:bg-white/2 border border-black/5 dark:border-white/5 sticky top-24'>
+            <div className='space-y-8'>
+              <div>
+                <h4 className='text-[10px] uppercase tracking-[0.2em] font-black text-accent mb-4'>
+                  Roles
+                </h4>
+                <p className='font-bold text-lg'>{project.role}</p>
+              </div>
 
-      {/* Technologies / Languages */}
-      <p className='text-sm mb-6 text-black/50 dark:text-white/50 transition-colors duration-500'>
-        <strong>Technologies:</strong> {project.language}
-      </p>
+              <div>
+                <h4 className='text-[10px] uppercase tracking-[0.2em] font-black text-accent mb-4'>
+                  Technologies
+                </h4>
+                <div className='flex flex-wrap gap-2'>
+                  {techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className='px-3 py-1 rounded-full bg-black/5 dark:bg-white/10 text-xs font-bold uppercase tracking-wider'>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-      {/* Links */}
-      <div className='flex flex-wrap gap-4 mb-12'>
-        {project.github && (
-          <a
-            href={project.github}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='px-4 py-2 rounded text-white dark:text-black bg-black dark:bg-white hover:bg-white dark:hover:bg-white/70 transition-colors duration-500'>
-            GitHub
-          </a>
-        )}
-        {project.link && (
-          <a
-            href={project.link}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='px-4 py-2 rounded text-white dark:text-black bg-black dark:bg-white hover:bg-white dark:hover:bg-white/70 transition-colors duration-500'>
-            Live Demo
-          </a>
-        )}
+              <div className='pt-8 space-y-3'>
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target='_blank'
+                    rel='noreferrer'
+                    className='flex items-center justify-center gap-2 w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-xl font-black uppercase tracking-widest text-xs hover:bg-accent dark:hover:bg-accent transition-colors'>
+                    <Github className='w-4 h-4' />
+                    Source Code
+                  </a>
+                )}
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target='_blank'
+                    rel='noreferrer'
+                    className='flex items-center justify-center gap-2 w-full py-4 border-2 border-black dark:border-white rounded-xl font-black uppercase tracking-widest text-xs hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all'>
+                    <Globe className='w-4 h-4' />
+                    Live Preview
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
