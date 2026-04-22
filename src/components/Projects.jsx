@@ -39,14 +39,22 @@ const Projects = () => {
       </div>
 
       {/* Filter Buttons */}
-      <div className="flex flex-wrap gap-3 mb-16">
+      <div 
+        className="flex md:flex-wrap overflow-x-auto gap-2 md:gap-3 mb-10 md:mb-16 pb-2 md:pb-0 no-scrollbar snap-x"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        <style dangerouslySetInnerHTML={{ __html: `
+          .no-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+        ` }} />
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveFilter(cat)}
-            className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${
+            className={`whitespace-nowrap shrink-0 snap-center px-4 py-2 md:px-6 md:py-2 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${
               activeFilter === cat
-                ? 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white scale-105'
+                ? 'bg-accent text-white border-accent md:scale-105'
                 : 'bg-transparent text-black/40 dark:text-white/40 border-black/10 dark:border-white/10 hover:border-accent hover:text-accent'
             }`}>
             {cat}

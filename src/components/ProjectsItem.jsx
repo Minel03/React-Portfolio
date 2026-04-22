@@ -23,7 +23,7 @@ const ProjectsItem = ({ title, role, category, index, image, id }) => {
         <motion.img
           src={image}
           alt={title}
-          className='w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]'
+          className='w-full h-full object-cover grayscale-0 md:grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]'
         />
 
         {/* Overlay */}
