@@ -37,8 +37,6 @@ const Project = () => {
 
   const techStack = project.language.split(',').map((tech) => tech.trim());
 
-
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -125,7 +123,7 @@ const Project = () => {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className='rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 group aspect-[4/3]'>
+                  className='rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 group aspect-4/3'>
                   <img
                     src={img}
                     alt={`${project.title} screenshot ${i}`}
