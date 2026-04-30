@@ -26,7 +26,7 @@ export const projects = [
       hospital_img15,
     ],
     github: 'https://github.com/Minel03/hospital-app',
-    link: 'https://hospital-app-bay-five.vercel.app',
+    link: 'https://hospital-app-frontend-lime.vercel.app',
   },
   {
     id: 'fims',
@@ -77,7 +77,6 @@ export const projects = [
       inv_img15,
     ],
     github: 'https://github.com/Minel03/inventory-system',
-    link: 'https://inventory-system-production-b202.up.railway.app',
   },
   {
     id: 'job-tracker',

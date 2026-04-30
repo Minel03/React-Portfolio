@@ -16,6 +16,7 @@ const Project = () => {
   const navigate = useNavigate();
   const project = projects.find((p) => p.id === id);
   const [currentImage, setCurrentImage] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -118,18 +119,18 @@ const Project = () => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
               {project.images.map((img, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className='rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 group aspect-4/3'>
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className='rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 group aspect-4/3 cursor-pointer relative z-10 transition-all duration-300 hover:border-accent/50'>
                   <img
                     src={img}
                     alt={`${project.title} screenshot ${i}`}
-                    className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]'
+                    className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
                   />
-                </motion.div>
+                  <div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
+                </div>
               ))}
             </div>
           </section>
@@ -187,6 +188,36 @@ const Project = () => {
           </div>
         </div>
       </div>
+
+      {/* Stable Hover Preview Overlay */}
+      <AnimatePresence>
+        {hoveredIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className='fixed inset-0 z-9999 flex items-center justify-center p-4 md:p-12 pointer-events-none'>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className='absolute inset-0 bg-black/80 backdrop-blur-md'
+            />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className='relative max-w-6xl w-full h-auto max-h-[85vh] aspect-video rounded-3xl overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.8)] border border-white/10 bg-black'>
+              <img
+                src={project.images[hoveredIndex]}
+                alt='Preview'
+                className='w-full h-full object-contain p-2'
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
